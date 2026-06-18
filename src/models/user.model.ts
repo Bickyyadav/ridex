@@ -3,7 +3,8 @@ import mongoose, { Date, Document } from "mongoose";
 interface IUser extends Document {
     name: string;
     email: string;
-    password: string
+    password: string;
+    role: "user" | "partner" | "admin"
     createdAt: Date;
     updatedAt: Date
 }
@@ -21,12 +22,17 @@ const userSchema = new mongoose.Schema<IUser>({
     password: {
         type: String,
     },
+    role: {
+        type: String,
+        default:"user",
+        enum:["user","partner","admin"]
+
+    }
 
 }, { timestamps: true })
 
 // to prevent from edge server we prevent this
-userSchema.index({location:"2dsphere"})
+userSchema.index({ location: "2dsphere" })
 
-const User=mongoose.models.User || mongoose.model("User",userSchema)
+const User = mongoose.models.User || mongoose.model("User", userSchema)
 export default User
- 
