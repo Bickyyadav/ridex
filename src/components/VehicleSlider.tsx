@@ -32,6 +32,8 @@ const VehicleSlider = () => {
     { num: "24/7", label: "Availability" },
   ]
 
+  
+
 
 
   return (
