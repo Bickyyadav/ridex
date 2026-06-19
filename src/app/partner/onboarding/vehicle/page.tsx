@@ -23,7 +23,6 @@ const page = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
 
-
     const handleVehicle = async () => {
         setError("")
         try {
