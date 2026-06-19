@@ -1,12 +1,14 @@
 "use client"
+import { RootState } from '@/redux/store'
 import { Bike, Bus, Car, Truck } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
+import { useSelector } from 'react-redux'
 
 
 
 const HeroSection = ({ onAuthRequired }: { onAuthRequired: () => void }) => {
-    // const { userData } = useSelector((state: RootState) => state.user)
+    const { userData } = useSelector((state: RootState) => state.user)
     const router = useRouter()
 
     return (
@@ -47,8 +49,7 @@ const HeroSection = ({ onAuthRequired }: { onAuthRequired: () => void }) => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className=' mt-12 px-10 py-4 bg-white text-black rounded-full font-semibold shadow-xl'
-                    // onClick={() => { !userData ? onAuthRequired() : router.push("/user/book") }}
-                    onClick={onAuthRequired}
+                    onClick={() => { !userData ? onAuthRequired() : router.push("/user/book") }}
                 >
                     Book Now
                 </motion.button>
