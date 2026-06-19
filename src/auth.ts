@@ -53,9 +53,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         async signIn({ user, account }) {
             if (account?.provider == "google") {
                 await connectDb()
-                const dbUser = await User.findOne({ email: user.email })
+                let dbUser = await User.findOne({ email: user.email })
                 if (!dbUser) {
-                    await User.create({
+                    dbUser = await User.create({
                         name: user.name,
                         email: user.email
                     })
