@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { motion } from "motion/react"
-import { ArrowLeft, UploadCloud } from 'lucide-react';
+import { ArrowLeft, CircleDashed, FileCheck, UploadCloud } from 'lucide-react';
 import axios from 'axios';
 
 
@@ -16,6 +16,8 @@ const page = () => {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+
+
   const handleDocs = async () => {
     setLoading(true)
     setError("")
@@ -48,6 +50,9 @@ const page = () => {
     }
     setDocs((prev) => ({ ...prev, [doc]: file }))
   }
+
+  const isCompleted = docs.aadhar && docs.license && docs.rc
+
 
   return (
     <div className='min-h-screen bg-white flex items-center justify-center px-4'>
@@ -124,6 +129,22 @@ const page = () => {
             <input type='file' hidden accept='image/*,.pdf' onChange={(e) => handleImage("rc", e.target?.files?.[0] || null)} />
           </motion.label>
         </div>
+        <div className='mt-6 flex items-start gap-3 text-xs text-gray-500'>
+          <FileCheck size={16} className="mt-0.5" />
+          <p> Documents are securely stored and manually verified
+            by our team.</p>
+        </div>
+        {error && <p className='text-red-500 mt-4'>*{error}</p>}
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={handleDocs}
+          disabled={!isCompleted || loading}
+          className="mt-8 w-full h-14 rounded-2xl bg-black text-white font-semibold flex items-center justify-center gap-2 disabled:opacity-40 transition"
+        >
+          {loading ? <CircleDashed className='text-white animate-spin' /> : "Continue"}
+
+        </motion.button>
       </motion.div>
     </div >
   )
