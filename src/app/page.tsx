@@ -17,7 +17,7 @@ export default async function Home() {
   const plainUser = JSON.parse(JSON.stringify(user))
   return (
     <div className="w-full min-h-screen bg-white">
-      <Nav />
+      {user.role !== "Admin" && <Nav />}
       {user?.role == "partner" ? <PartnerDashboard /> : (user?.role == "Admin" ? <AdminDashboard /> : <PublicHome />)}
       <Footer />
     </div>
