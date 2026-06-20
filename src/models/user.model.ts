@@ -53,8 +53,12 @@ const userSchema = new mongoose.Schema<IUser>({
         default: "user",
         enum: ["user", "partner", "admin"]
 
+    },
+    partnerStatus: {
+        type: String,
+        enum: ["pending", "approved", "rejected"],
+        default: "pending"
     }
-
 }, { timestamps: true })
 
 // to prevent from edge server we prevent this

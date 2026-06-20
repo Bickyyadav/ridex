@@ -25,7 +25,6 @@ const AuthModal = ({ open, onClose }: propType) => {
 
 
     const session = useSession()
-    console.log("🚀🔴🔴🔴🔴 ~ AuthModal ~ data:", session)
 
     const handleLogin = async () => {
         setLoading(true)
