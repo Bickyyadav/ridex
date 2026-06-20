@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
         }
         if (aadhar) {
             const url = await uploadOnCloudinary(aadhar)
+            console.log("🚀 ~ POST ~ url:", url)
             if (!url) {
                 return Response.json({ message: "aadhar upload failed" }
                     , { status: 500 }
@@ -47,6 +48,7 @@ export async function POST(req: NextRequest) {
         }
         if (license) {
             const url = await uploadOnCloudinary(license)
+            console.log("🚀 ~ POST ~ url:", url)
             if (!url) {
                 return Response.json({ message: "license upload failed" }
                     , { status: 500 }
@@ -56,6 +58,7 @@ export async function POST(req: NextRequest) {
         }
         if (rc) {
             const url = await uploadOnCloudinary(rc)
+            console.log("🚀 ~ POST ~ url:", url)
             if (!url) {
                 return Response.json({ message: "rc upload failed" }
                     , { status: 500 }
@@ -77,11 +80,12 @@ export async function POST(req: NextRequest) {
         user.partnerStatus = "pending"
         await user.save()
 
-        return Response.json(partnerDocs, { status: 201 })
+        return Response.json(partnerDocs, { status: 200 })
 
     } catch (error) {
+        console.error("Partner docs error:", error);
         return Response.json(
-            { message: `partner docs error ${error}` }, { status: 201 }
+            { message: `partner docs error ${error instanceof Error ? error.message : JSON.stringify(error)}` }, { status: 500 }
         )
     }
 

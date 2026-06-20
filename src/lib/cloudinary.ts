@@ -8,7 +8,9 @@ cloudinary.config({
 });
 
 
+
 const uploadOnCloudinary = async (file: Blob): Promise<string | null> => {
+    console.log("🚀 ~ uploadOnCloudinary ~ file:", file)
     if (!file) {
         return null
     }

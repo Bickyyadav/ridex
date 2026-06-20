@@ -28,6 +28,7 @@ const Nav = () => {
         setProfileOpen(false)
     }
 
+    
 
 
 
@@ -44,22 +45,6 @@ const Nav = () => {
             >
                 <div className='max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between'>
                     <Image src={"/logo.png"} alt='logo' width={44} height={44} priority />
-                    {/* <div className='hidden md:flex items-center gap-10 '>
-                    {
-                        Nav_Items.map((i, index) => {
-                            let href;
-                            if (i == "Home") {
-                                href = `/`
-                            } else {
-                                href = `/${i.toLowerCase()}`
-                        }
-                        const active = href == pathName
-                        return <Link key={index} href={href} className={`text-sm pl-2 font-medium transition ${active ? "text-white" : " text-gray-400 hover:text-white"
-                        }`}>{i}</Link>
-                        })
-                        }
-                        
-                        </div> */}
                     <div className='hidden md:flex items-center gap-10'>
 
                         {userData?.role == "partner" ? (

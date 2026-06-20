@@ -47,7 +47,9 @@ export async function POST(req: Request) {
 
 
         let vehicle = await Vehicle.findOne({ owner: user._id })
+        console.log("🚀 ~ POST ~ vehicle:💦💦💦",)
         //if you found the vehicel then update the vehicel 
+
         if (vehicle) {
             vehicle.type = type
             vehicle.number = vehicleNumber
@@ -56,9 +58,10 @@ export async function POST(req: Request) {
             await vehicle.save()
             return Response.json(vehicle, { status: 200 })
         }
-        vehicle = await vehicle.create({
+        vehicle = await Vehicle.create({
+            owner: user._id,
             type,
-            vehicleNumber,
+            number: vehicleNumber,
             vehicleModel
         })
 

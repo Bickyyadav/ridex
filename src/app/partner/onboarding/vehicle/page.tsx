@@ -18,8 +18,11 @@ const VEHICLES = [
 const page = () => {
     const router = useRouter()
     const [vehicleType, setVehicleType] = useState("")
+    console.log("🚀 ~ page ~ vehicleType:", vehicleType)
     const [vehicleNumber, setVehicleNumber] = useState("")
+    console.log("🚀 ~ page ~ vehicleNumber:", vehicleNumber)
     const [vehicleModel, setVehicleModel] = useState("")
+    console.log("🚀 ~ page ~ vehicleModel:", vehicleModel)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
 
