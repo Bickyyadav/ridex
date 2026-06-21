@@ -29,6 +29,7 @@ const AdminDashboard = () => {
         try {
 
             const { data } = await axios.get("/api/admin/dashboard")
+            console.log("🚀 ~ handleGetData ~ data:", data)
             setStats(data.stats)
             setPartnerReviews(data.pendingPartnersReviews)
             setVehicleReviews(data.pendingVehicles)
@@ -50,7 +51,6 @@ const AdminDashboard = () => {
     useEffect(() => {
         handleGetData()
     }, [])
-
 
     return (
         <div className='min-h-screen bg-linear-to-br from-gray-100 to-gray-200'>

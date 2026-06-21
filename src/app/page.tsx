@@ -13,13 +13,26 @@ export default async function Home() {
   const session = await auth();
   await connectDb()
   const user = await User.findOne({ email: session?.user?.email })
+  console.log("🚀 ~ Home ~ user:", user.role)
 
   const plainUser = JSON.parse(JSON.stringify(user))
   return (
     <div className="w-full min-h-screen bg-white">
-      {user.role !== "Admin" && <Nav />}
-      {user?.role == "partner" ? <PartnerDashboard /> : (user?.role == "Admin" ? <AdminDashboard /> : <PublicHome />)}
+      {
+        plainUser?.role == "partner" ? <>
+          <Nav />
+          <PartnerDashboard />
+        </>
+          : (plainUser?.role == "admin"
+            ?
+            <AdminDashboard /> : <>
+              <Nav />
+              <PublicHome />
+            </>
+          )}
+      {/* {user?.role == "partner" ? <PartnerDashboard /> : (user?.role == "admin" ? <AdminDashboard /> : <PublicHome />)} */}
       <Footer />
+
     </div>
   );
 }

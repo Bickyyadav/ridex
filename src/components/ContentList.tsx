@@ -9,7 +9,6 @@ import axios from 'axios'
 const ContentList = ({ data, type }: any) => {
     const router = useRouter()
 
-
     const handleStartVideoKyc = async (id: any) => {
         try {
             const result = await axios.get(`/api/admin/video-kyc/start/${id}`)
