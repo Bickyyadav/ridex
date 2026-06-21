@@ -4,7 +4,6 @@ import PartnerBank from "@/models/partnerBank.model";
 import User from "@/models/user.model";
 import { NextRequest } from "next/server";
 
-
 export async function POST(req: NextRequest) {
     try {
         await connectDb()
