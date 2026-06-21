@@ -2,7 +2,6 @@ import { AnimatePresence } from 'motion/react'
 import React, { useEffect, useState } from 'react'
 import { motion } from "motion/react"
 import { ImagePlus, IndianRupee } from 'lucide-react'
-// import { useRouter } from 'next/navigation'
 import axios from 'axios'
 
 const PricingModal = ({ open, onClose, data }: any) => {
@@ -12,7 +11,6 @@ const PricingModal = ({ open, onClose, data }: any) => {
     const [pricePerKM, setPricePerKM] = useState("")
     const [waitingCharge, setWaitingCharge] = useState("")
     const [loading, setLoading] = useState(false)
-    // const router = useRouter()
 
 
     useEffect(() => {
@@ -41,6 +39,7 @@ const PricingModal = ({ open, onClose, data }: any) => {
             setLoading(false)
             onClose()
             window.location.reload()
+            
         } catch (error: any) {
             console.log(error.response.data.message ?? error)
             setLoading(false)

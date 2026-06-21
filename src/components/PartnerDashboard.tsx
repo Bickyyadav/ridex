@@ -56,7 +56,6 @@ const PartnerDashboard = () => {
             setVehicleData(data)
         } catch (error) {
             console.log(error)
-
         }
     }
 
@@ -180,6 +179,26 @@ const PartnerDashboard = () => {
                             desc="Admin will initiate Video KYC shortly."
                         />))
                 }
+                {
+                    activeStep == 7 && vehicleData?.status == "pending" && (
+                        <StatusCard
+                            icon={<Clock size={20} />}
+                            title="Pricing Under Review"
+                            desc="Admin is reviewing your pricing."
+                        />
+                    )
+                }
+                {
+                    activeStep == 7 && vehicleData?.status == "rejected" && (
+                        <RejectionCard
+                            title="Pricing Rejected"
+                            actionLabel="Edit & Resubmit"
+                            reason={vehicleData.rejectionReason}
+                            onAction={() => setShowPricing(true)}
+                        />
+                    )
+                }
+                
 
             </div>
             <PricingModal
