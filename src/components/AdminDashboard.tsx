@@ -41,7 +41,7 @@ const AdminDashboard = () => {
 
     const handleGetPendingKYC = async () => {
         try {
-            const data = await axios.get("/api/admin/video-kyc/pending")
+            const { data } = await axios.get("/api/admin/video-kyc/pending")
             setPendingkyc(data)
         } catch (error) {
             console.log("🚀 ~ handleGetPendingKYC ~ error:", error)
@@ -49,6 +49,7 @@ const AdminDashboard = () => {
     }
 
     useEffect(() => {
+        handleGetPendingKYC()
         handleGetData()
     }, [])
 

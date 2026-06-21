@@ -87,6 +87,7 @@ export async function POST(req: Request) {
             user.partnerOnBoardingSteps = 1
         }
         user.role = "partner"
+        user.partnerStatus = "pending"
         user.save()
         return Response.json(vehicle, { status: 200 })
 

@@ -3,10 +3,14 @@ import { RootState } from '@/redux/store'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { motion } from 'motion/react'
-import { Check, Clock, Lock } from 'lucide-react'
+import { Check, Clock, Lock, Video } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import RejectionCard from './RejectionCard'
 import StatusCard from './StatusCard'
+import axios from 'axios'
+import ActionCard from './ActionCard'
+import { IVehicle } from '@/models/vehicle.model'
+import PricingModal from './PricingModal'
 
 
 type Step = {
@@ -30,28 +34,44 @@ const TOTAL_STEPS = STEPS.length;
 
 
 
-
 const PartnerDashboard = () => {
     const router = useRouter()
     const [activeStep, setActiveStep] = useState(0)
+    console.log("🚀💕💕💕💕 ~ PartnerDashboard ~ activeStep:", activeStep)
     const { userData } = useSelector((state: RootState) => state.user)
     const [showPricing, setShowPricing] = useState(false)
+    const [requestLoading, setRequestLoading] = useState(false)
+    const [vehicleData, setVehicleData] = useState<IVehicle | null>(null)
 
     useEffect(() => {
         if (userData) {
-            setActiveStep(userData.partnerOnBoardingSteps)
+            setActiveStep(userData.partnerOnBoardingSteps + 1)
         }
     }, [userData])
 
+    const handleGetPricing = async () => {
+        try {
+            const { data } = await axios.get("/api/partner/onboarding/pricing")
+            console.log(data)
+            setVehicleData(data)
+        } catch (error) {
+            console.log(error)
+
+        }
+    }
+
+    useEffect(() => {
+        handleGetPricing()
+    }, [])
+
     const goToStep = (step: Step) => {
-        // if (step.id == 6 && userData?.partnerStatus === "approved" && userData.videoKycStatus === "approved") {
-        //     setShowPricing(true)
-        //     return;
-        // }
+        if (step.id == 6 && userData?.partnerStatus === "approved" && userData.videoKycStatus === "approved") {
+            setShowPricing(true)
+            return;
+        }
         if (step.route && step.id <= activeStep) {
             router.push(step.route)
         }
-
     }
 
     const progressPercentage = ((activeStep - 1) / (TOTAL_STEPS - 1)) * 100
@@ -125,8 +145,48 @@ const PartnerDashboard = () => {
                             desc={"Admin is verifying your documents."} />
                     )
                 }
+                {
+                    activeStep == 5 && (userData?.videoKycStatus === "approved" ? (
+                        <StatusCard
+                            icon={<Check size={18} />}
+                            title={"video kyc approved"}
+                            desc={"You can now proceed to pricing."}
+                        />
+
+                    ) : userData?.videoKycStatus === "rejected" ? (
+                        <RejectionCard
+                            title="Video KYC Rejected"
+                            reason={userData?.videoKycRejectionReason}
+                            actionLabel={requestLoading ? "Requesting..." : "Request Again"}
+                            onAction={async () => {
+                                setRequestLoading(true)
+                                await axios.get("/api/partner/video-kyc/request")
+                                setRequestLoading(false)
+                            }}
+                        />
+                    ) : userData?.videoKycStatus === "in_progress" && userData?.videoKycRoomId ? (
+                        <ActionCard
+                            icon={<Video size={18} />}
+                            title={"Admin Started Video KYC"}
+                            button={"Join Call"}
+                            onclick={
+                                () => router.push(`/video-kyc/${userData.videoKycRoomId}`)
+                            }
+                        />
+                    ) : (
+                        <StatusCard
+                            icon={<Clock size={20} />}
+                            title="Waiting for Admin"
+                            desc="Admin will initiate Video KYC shortly."
+                        />))
+                }
 
             </div>
+            <PricingModal
+                open={showPricing}
+                onClose={() => setShowPricing(false)}
+                data={vehicleData}
+            />
         </div >
     )
 }

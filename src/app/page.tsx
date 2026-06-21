@@ -13,7 +13,7 @@ export default async function Home() {
   const session = await auth();
   await connectDb()
   const user = await User.findOne({ email: session?.user?.email })
-  console.log("🚀 ~ Home ~ user:", user.role)
+
 
   const plainUser = JSON.parse(JSON.stringify(user))
   return (
