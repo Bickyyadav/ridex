@@ -6,7 +6,6 @@ import User from "@/models/user.model";
 import Vehicle from "@/models/vehicle.model";
 import { NextRequest } from "next/server";
 
-
 export async function GET(req: NextRequest, context: { params: Promise<{ id: string }> }) {
     try {
         await connectDb()

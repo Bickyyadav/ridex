@@ -14,7 +14,6 @@ export async function POST(req: NextRequest,
                 , { status: 400 }
             )
         }
-
         const { rejectionReason } = await req.json()
         console.log("🚀🔴🔴🔴🔴 ~ POST ~ rejectionReason:", rejectionReason)
         const partnerId = (await context.params).id

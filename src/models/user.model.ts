@@ -23,6 +23,12 @@ export interface IUser extends Document {
     videoKycStatus: VideoKycStatus
     videoKycRoomId: string
     videoKycRejectionReason: string
+    socketId: string | null
+    location?: {
+        type: "Point",
+        coordinates: [number, number]
+    }
+    isOnline: boolean
     createdAt: Date;
     updatedAt: Date
 }
@@ -44,10 +50,7 @@ const userSchema = new mongoose.Schema<IUser>({
         type: Boolean,
         default: false
     },
-    otp: {
-        type: String,
 
-    },
     rejectionReason: {
         type: String
     },
@@ -60,6 +63,10 @@ const userSchema = new mongoose.Schema<IUser>({
     mobileNumber: {
         type: String
     },
+    otp: {
+        type: String,
+
+    },
     otpExpiresAt: {
         type: Date,
     },
@@ -67,6 +74,28 @@ const userSchema = new mongoose.Schema<IUser>({
         type: String,
         enum: ["not_required", "pending", "in_progress", "approved", "rejected"],
         default: "not_required"
+    },
+    videoKycRoomId: {
+        type: String
+    },
+    videoKycRejectionReason: {
+        type: String
+    },
+    socketId: {
+        type: String,
+        default: null
+    },
+    isOnline: {
+        type: Boolean,
+        default: false,
+        index: true
+    },
+    location: {
+        type: {
+            type: String,
+            enum: ["Point"]
+        },
+        coordinates: [Number]
     },
     role: {
         type: String,

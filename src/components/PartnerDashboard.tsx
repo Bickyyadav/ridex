@@ -16,14 +16,14 @@ type Step = {
 }
 
 const STEPS: Step[] = [
-    { id: 0, title: "Vehicle", route: "/partner/onboarding/vehicle" },
-    { id: 1, title: "Documents", route: "/partner/onboarding/documents" },
-    { id: 2, title: "Bank", route: "/partner/onboarding/bank" },
-    { id: 3, title: "Review" },
-    { id: 4, title: "Video KYC" },
-    { id: 5, title: "Pricing" },
-    { id: 6, title: "Final Review" },
-    { id: 7, title: "Live" },
+    { id: 1, title: "Vehicle", route: "/partner/onboarding/vehicle" },
+    { id: 2, title: "Documents", route: "/partner/onboarding/documents" },
+    { id: 3, title: "Bank", route: "/partner/onboarding/bank" },
+    { id: 4, title: "Review" },
+    { id: 5, title: "Video KYC" },
+    { id: 6, title: "Pricing" },
+    { id: 7, title: "Final Review" },
+    { id: 8, title: "Live" },
 ]
 
 const TOTAL_STEPS = STEPS.length;
@@ -55,6 +55,7 @@ const PartnerDashboard = () => {
     }
 
     const progressPercentage = ((activeStep - 1) / (TOTAL_STEPS - 1)) * 100
+    console.log("🚀 ~ PartnerDashboard ~ progressPercentage:", progressPercentage)
 
     return (
         <div className='min-h-screen bg-linear-to-br from-gray-100 to-gray-200 px-4 pt-28 pb-20'>
