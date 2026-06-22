@@ -51,7 +51,6 @@ const page = () => {
     // in this if we filled the value then it will make progress bar filled
     const progress = [!!vehicle, !!mobile, !!pick, !!drop].filter(Boolean).length
     const canContinue = !!(vehicle && mobile && pickUp && drop && pickUpLat && pickUpLon && dropLat && dropLon)
-    console.log("🚀 ~ page ~ progress:", progress)
 
     const stepVariants = {
         hidden: { opacity: 0, y: 16 },
@@ -72,7 +71,6 @@ const page = () => {
                     limit: 5
                 }
             })
-            console.log(data)
             let results: Place[] = (data.features ?? []).map((f: any) => ({
                 id: String(f.properties.osm_id),
                 name: f.properties.name,
@@ -109,7 +107,7 @@ const page = () => {
                         filter: "countrycode:in"
                     }
                 })
-                console.log(data)
+               
                 if (data.features.length) {
                     const p = data.features[0].properties
                     const address = [p.name, p.street, p.county, p.state, p.country, p.city,].filter(Boolean).join(",")
