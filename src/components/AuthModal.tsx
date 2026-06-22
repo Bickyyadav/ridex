@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { AnimatePresence, motion, useTime } from "motion/react"
 import { CircleDashed, Lock, Mail, User, X } from 'lucide-react'
 import Image from 'next/image'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { div } from 'motion/react-client'
 import axios from 'axios'
 
@@ -22,9 +22,6 @@ const AuthModal = ({ open, onClose }: propType) => {
     const [loading, setLoading] = useState(false)
     const [otp, setOtp] = useState(["", "", "", "", "", ""])
 
-
-
-    const session = useSession()
 
     const handleLogin = async () => {
         setLoading(true)

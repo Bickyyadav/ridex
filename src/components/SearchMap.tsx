@@ -119,7 +119,7 @@ const SearchMap = ({ pickUp, drop, onChange, onDistance }: props) => {
             if (!data.routes.length) return;
             setRoute(data.routes[0].geometry.coordinates.map(([lon, lat]: number[]) => [lat, lon]))
             const distKm = +((data.routes[0].distance) / 1000).toFixed(2)
-            
+
             setKm(distKm)
             onDistance(distKm)
         } catch (error) {

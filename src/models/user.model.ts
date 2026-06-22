@@ -88,14 +88,14 @@ const userSchema = new mongoose.Schema<IUser>({
     isOnline: {
         type: Boolean,
         default: false,
-        index: true
+        index: true  
     },
     location: {
         type: {
             type: String,
             enum: ["Point"]
         },
-        coordinates: [Number]
+        coordinates: [Number]  //lat and longitude
     },
     role: {
         type: String,

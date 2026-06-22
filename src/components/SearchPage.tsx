@@ -50,8 +50,6 @@ const SearchPage = () => {
         getNearByVehicles(pickUpLat, pickUpLon, vehicle)
     }, [pickUpLat, pickUpLon, pickUp])
 
-
-
     return (
         <div className='min-h-screen bg-zinc-100 text-zinc-900 overflow-x-hidden'>
             <div className='absolute top-5 left-5 z-50'>

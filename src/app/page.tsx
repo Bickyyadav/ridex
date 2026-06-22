@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import AdminDashboard from "@/components/AdminDashboard";
 import Footer from "@/components/Footer";
+import GeoUpdateer from "@/components/GeoUpdateer";
 import Nav from "@/components/Nav";
 import PartnerDashboard from "@/components/PartnerDashboard";
 import PublicHome from "@/components/publicHome";
@@ -18,6 +19,7 @@ export default async function Home() {
   const plainUser = JSON.parse(JSON.stringify(user))
   return (
     <div className="w-full min-h-screen bg-white">
+      <GeoUpdateer userId={plainUser?._id} />
       {
         plainUser?.role == "partner" ? <>
           <Nav />
