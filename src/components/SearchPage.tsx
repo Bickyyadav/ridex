@@ -1,11 +1,12 @@
 "use client"
-import { IVehicle } from '@/models/vehicle.model'
 import axios from 'axios'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from "motion/react"
 import { ArrowLeft, Bike, Car, MapPin, Navigation, RefreshCcw, Search, Truck, Zap } from 'lucide-react'
 import SearchMap from './SearchMap'
+import VehicleCard from './VehicleCard'
+import { vehicleType } from '@/models/vehicle.model'
 
 
 const VEHICLE_META: any = {
@@ -15,6 +16,24 @@ const VEHICLE_META: any = {
     loading: { label: "Loading", Icon: Truck },
     truck: { label: "Truck", Icon: Truck },
 };
+
+interface IVehicle {
+    _id: string
+    owner: string
+    type: vehicleType,
+    vehicleModel: string,
+    number: string,
+    imageUrl?: string,
+    baseFare?: number,
+    pricePerKM?: number,
+    waitingCharge?: number,
+    status: "approved" | "pending" | "rejected",
+    rejectionReason?: string,
+    isActive: boolean,
+    createdAt: Date,
+    updatedAt: Date
+
+}
 
 const SearchPage = () => {
     const router = useRouter()
@@ -35,7 +54,7 @@ const SearchPage = () => {
     const getNearByVehicles = async (latitude: number, longitude: number, vehicleType: string | null) => {
         setLoading(true)
         try {
-            const { data } = await axios.post("/api/vehicles/near-by", {
+            const { data } = await axios.post("/api/vehicle/near-by", {
                 latitude, longitude, vehicleType
             })
             setVehicles(data)
@@ -200,7 +219,7 @@ const SearchPage = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.06, duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
                             >
-                                {/* <VehicleCard
+                                <VehicleCard
                                     vehicle={v}
                                     distance={km}
                                     onBook={
@@ -221,7 +240,7 @@ const SearchPage = () => {
                                             router.push(`/user/checkout?${url.toString()}`)
                                         }
                                     }
-                                /> */}
+                                />
 
                             </motion.div>
                         ))}
