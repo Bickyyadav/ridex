@@ -31,16 +31,17 @@ const Nav = () => {
 
     const fetchCount = async () => {
         try {
-            const { data } = await axios.get("/api/partner/bookings/pending-requests-count")
-            console.log(data)
-            setPendingCount(data)
+             console.log("💦💦💦💦💦")
+
+            const { data } = await axios.get("/api/partner/booking/pending-requests-count")
+            console.log("💦💦💦💦💦", data)
+
+            setPendingCount(data.count)
 
         } catch (error) {
             console.log(error)
         }
-
     }
-
 
     useEffect(() => {
         if (userData?._id) {

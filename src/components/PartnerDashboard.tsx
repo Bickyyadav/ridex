@@ -37,11 +37,11 @@ const TOTAL_STEPS = STEPS.length;
 const PartnerDashboard = () => {
     const router = useRouter()
     const [activeStep, setActiveStep] = useState(0)
-    console.log("🚀💕💕💕💕 ~ PartnerDashboard ~ activeStep:", activeStep)
     const { userData } = useSelector((state: RootState) => state.user)
     const [showPricing, setShowPricing] = useState(false)
     const [requestLoading, setRequestLoading] = useState(false)
     const [vehicleData, setVehicleData] = useState<IVehicle | null>(null)
+   
 
     useEffect(() => {
         if (userData) {
@@ -52,10 +52,10 @@ const PartnerDashboard = () => {
     const handleGetPricing = async () => {
         try {
             const { data } = await axios.get("/api/partner/onboarding/pricing")
-            console.log(data)
+           
             setVehicleData(data)
         } catch (error) {
-            console.log(error)
+            console.log("💦💦💦💦💦",error)
         }
     }
 
@@ -74,7 +74,6 @@ const PartnerDashboard = () => {
     }
 
     const progressPercentage = ((activeStep - 1) / (TOTAL_STEPS - 1)) * 100
-    console.log("🚀 ~ PartnerDashboard ~ progressPercentage:", progressPercentage)
 
     return (
         <div className='min-h-screen bg-linear-to-br from-gray-100 to-gray-200 px-4 pt-28 pb-20'>
@@ -94,7 +93,6 @@ const PartnerDashboard = () => {
                         />
                         <div className='relative flex justify-between'>
                             {STEPS.map((s, index) => {
-                                console.log("🚀 ~ PartnerDashboard ~ s:", s)
                                 const completed = s.id < activeStep
                                 const active = s.id == activeStep
                                 const locked = s.id > activeStep

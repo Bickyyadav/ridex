@@ -5,6 +5,7 @@ import User from "@/models/user.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
+  
     try {
         await connectDb()
         const session = await auth()
@@ -20,13 +21,13 @@ export async function GET(req: NextRequest) {
                 , { status: 400 }
             )
         }
-        
+
         const count = await Booking.countDocuments({
             driver: partner._id,
             bookingStatus: "requested"
         })
 
-        return NextResponse.json(count, { status: 200 })
+        return NextResponse.json({count}, { status: 200 })
 
     } catch (error) {
         return NextResponse.json({ message: `fetch pending req count error ${error}` }
