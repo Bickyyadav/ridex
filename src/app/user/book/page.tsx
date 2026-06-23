@@ -93,12 +93,13 @@ const page = () => {
 
     const suggestion = (p: Place) => [p.name, p.city, p.state, p.country].filter(Boolean).join(",")
 
+    //reverse localtion
     const useCurrentLocation = () => {
         if (!navigator.geolocation) return;
         setLocating(true)
         navigator.geolocation.getCurrentPosition(async ({ coords }) => {
             try {
-                // photon.komoot.io
+                // geoapify api key
                 const { data } = await axios.get("https://api.geoapify.com/v1/geocode/reverse", {
                     params: {
                         lat: coords.latitude,

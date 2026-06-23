@@ -3,6 +3,7 @@ import { ArrowRight, Banknote, Bike, Car, CheckCircle, Clock, CreditCard, Icon, 
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from "motion/react"
+import axios from 'axios'
 
 
 const VEHICLE_META: any = {
@@ -34,19 +35,48 @@ const CheckOutContent = () => {
     const vehicleId = params.get("vehicleId") || ""
     const fare = params.get("fare") || ""
     const [loading, setLoading] = useState(false)
-    const [status, setStatus] = useState<Status>("payment")
+    const [status, setStatus] = useState<Status>("idle")
     const { Icon, label } = VEHICLE_META[vehicle]
     const [booking, setBooking] = useState<any>()
     const [paymentMethod, setPaymentMethod] = useState<"cash" | "online">("cash")
 
 
-    const handleRequestBooking = async () => { }
+    const handleRequestBooking = async () => {
+        setLoading(true)
+        try {
+            const { data } = await axios.post("/api/booking/create", {
+                driverId,
+                vehicleId,
+                pickUpAddress: pickUp,
+                dropAddress: drop,
+                pickUpLocation: {
+                    type: "Point",
+                    coordinates: [pickUpLon, pickUpLat]
+                },
+                dropLocation: {
+                    type: "Point",
+                    coordinates: [dropLon, dropLat]
+                },
+                fare,
+                mobileNumber: mobile,
+            })
+            console.log("🚀 ~ handleRequestBooking ~ data:", data)
+
+            setBooking(data)
+            setLoading(false)
+            setStatus("requested")
+
+        } catch (error: any) {
+            setLoading(false)
+            console.log(error.response.data.message)
+        }
+    }
 
     const loadRazorpayScript = () => {
 
     }
 
-    const  handleConfirmPayment = () => {
+    const handleConfirmPayment = () => {
 
 
     }

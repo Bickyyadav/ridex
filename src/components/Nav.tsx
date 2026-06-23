@@ -7,9 +7,10 @@ import { signOut } from "next-auth/react"
 import Image from 'next/image'
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import AuthModal from "./AuthModal"
+import axios from "axios"
 const Nav_Items = ["Home", "Booking", "About Us", "Contact"]
 
 const Nav = () => {
@@ -28,7 +29,29 @@ const Nav = () => {
         setProfileOpen(false)
     }
 
-    
+    const fetchCount = async () => {
+        try {
+            const { data } = await axios.get("/api/partner/bookings/pending-requests-count")
+            console.log(data)
+            setPendingCount(data)
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+
+    useEffect(() => {
+        if (userData?._id) {
+            fetchCount()
+        }
+    }, [userData?._id])
+
+
+
+
+
 
 
 
