@@ -50,13 +50,6 @@ const Nav = () => {
     }, [userData?._id])
 
 
-
-
-
-
-
-
-
     return (
         <>
             <motion.div
