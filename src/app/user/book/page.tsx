@@ -26,8 +26,6 @@ type Place = {
 };
 
 
-
-
 const page = () => {
     const router = useRouter()
     const [vehicle, setVehicle] = useState<vehicleType>()
@@ -56,7 +54,7 @@ const page = () => {
         hidden: { opacity: 0, y: 16 },
         visible: { opacity: 1, y: 0 }
     }
-
+  
     const searchAddress = async (q: string, setResults: (r: Place[]) => void, restrict?: string | null) => {
         if (!q || q.trim().length < 3) {
             setResults([])

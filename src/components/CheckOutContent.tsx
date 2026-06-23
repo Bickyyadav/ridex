@@ -81,20 +81,38 @@ const CheckOutContent = () => {
 
     }
 
-    const fetchActiveBooking = () => {
-
-
+    const fetchActiveBooking = async () => {
+        try {
+            const { data } = await axios.get("/api/booking/active")
+            setBooking(data.booking)
+            setStatus(data.booking.bookingStatus || data.booking)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    const handleCancel = () => { }
-
     useEffect(() => {
-
+        fetchActiveBooking()
     }, [])
 
-    useEffect(() => {
+    const handleCancel = async () => {
+        try {
+            const { data } = await axios.get(`/api/booking/${booking._id}/cancel`)
+            setStatus("idle")
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-    }, [])
+
+    useEffect(() => {
+        // after partner acceppt then it will run after ttwot second and in usestate it will put payment method to show in ui
+        if (status !== "awaiting_payment") return;
+        const t = setTimeout(() => {
+            setStatus("payment")
+        }, 2000);
+        return () => { clearTimeout(t) }
+    }, [status])
 
 
 

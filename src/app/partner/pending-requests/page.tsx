@@ -6,8 +6,6 @@ import { BookingStatus, PaymentStatus } from '@/models/booking.model'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 
-
-
 interface IBooking {
     _id: string
     user: string
@@ -63,7 +61,7 @@ const page = () => {
         const { data } = await axios.get(`/api/partner/booking/${id}/accept`)
         router.push("/partner/bookings")
 
-    }
+    } 
 
     const handleReject = async (id: string) => {
         try {
