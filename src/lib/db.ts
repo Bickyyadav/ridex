@@ -8,7 +8,7 @@ const mongodbUrl = process.env.MONGODB_URL
 if (!mongodbUrl) {
     throw new Error("db url not found!")
 }
-
+//this will provide error if we have not used typescript so we have wrote global.d.ts
 let cached = global.mongooseConn
 if (!cached) {
     cached = global.mongooseConn = { conn: null, promise: null }
@@ -29,6 +29,7 @@ const connectDb = async () => {
 
         return conn
     } catch (error) {
+        cached.promise = null
         console.error("MongoDB Connection Error:");
         console.error(error);
         throw error;

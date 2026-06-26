@@ -11,7 +11,6 @@ const HeroSection = ({ onAuthRequired }: { onAuthRequired: () => void }) => {
     const { userData } = useSelector((state: RootState) => state.user)
     const router = useRouter()
 
-     
 
     return (
         <div className='relative min-h-screen w-full overflow-hidden'>

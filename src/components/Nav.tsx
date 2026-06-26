@@ -31,13 +31,8 @@ const Nav = () => {
 
     const fetchCount = async () => {
         try {
-             console.log("💦💦💦💦💦")
-
             const { data } = await axios.get("/api/partner/booking/pending-requests-count")
-            console.log("💦💦💦💦💦", data)
-
             setPendingCount(data.count)
-
         } catch (error) {
             console.log(error)
         }
@@ -161,6 +156,8 @@ const Nav = () => {
                     </div>
                 </div>
             </motion.div >
+
+            {/* this is for mobile device and response in all mobile and tab device so we have used */}
             <AnimatePresence>
                 {profileOpen && userData && (
                     <>

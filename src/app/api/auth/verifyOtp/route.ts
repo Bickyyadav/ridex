@@ -41,6 +41,7 @@ export async function POST(req: Request) {
         user.isEmailVerified = true
         user.otp = undefined
         user.otpExpiresAt = undefined
+        await user.save()
 
         return Response.json(
             { message: "email is verified" },

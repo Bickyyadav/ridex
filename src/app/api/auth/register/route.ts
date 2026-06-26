@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
                 { status: 400 }
             )
         }
+        
         const otp = Math.floor(100000 + Math.random() * 900000).toString()
         const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000)
 
@@ -24,16 +25,19 @@ export async function POST(req: NextRequest) {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)
-        if (!user && !user.isEmailVerified) {
-            user.name = name,
-                user.password = hashedPassword,
-                user.email = email
-            user.otp = otp,
-                user.otpExpiresAt = otpExpiresAt
+        if (user) {
+            user.name = name
+            user.password = hashedPassword
+            user.otp = otp
+            user.otpExpiresAt = otpExpiresAt
             await user.save()
         } else {
             user = await User.create({
-                name, email, password: hashedPassword
+                name,
+                email,
+                password: hashedPassword,
+                otp,
+                otpExpiresAt
             })
         }
         await sendMail(
