@@ -15,7 +15,7 @@ export interface IVehicle {
     waitingCharge?: number,
     status: vehicleStatus,
     rejectionReason?: string,
-    isActive: boolean, //does user is in active or nor like user want to book a ride or not
+    isActive: boolean, // does user is in active or nor like user want to book a ride or not
     createdAt: Date,
     updatedAt: Date
 }

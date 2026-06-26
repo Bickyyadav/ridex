@@ -148,7 +148,6 @@ const VehicleSlider = () => {
                       >
                         {c.desc}
                       </motion.p>
-
                     </motion.div>
                   </motion.div>
 
@@ -171,9 +170,7 @@ const VehicleSlider = () => {
                 <p className='text-zinc-400 text-xs font-medium'>{d.label}</p>
               </div>))
           }
-
         </motion.div>
-
       </div>
     </div>
   )

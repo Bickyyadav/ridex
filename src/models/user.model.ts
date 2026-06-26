@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose from "mongoose";
 
 
 type VideoKycStatus =
@@ -8,7 +8,8 @@ type VideoKycStatus =
     | "approved"
     | "rejected";
 
-export interface IUser extends Document {
+export interface IUser {
+    _id?: any;
     name: string;
     email: string;
     password: string;

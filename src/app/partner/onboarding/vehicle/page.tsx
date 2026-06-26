@@ -5,8 +5,6 @@ import { motion } from "motion/react"
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-
-
 const VEHICLES = [
     { id: "bike", label: "Bike", icon: Bike, desc: "2 wheeler" },
     { id: "auto", label: "Auto", icon: Car, desc: "3 wheeler ride" },
@@ -18,11 +16,8 @@ const VEHICLES = [
 const page = () => {
     const router = useRouter()
     const [vehicleType, setVehicleType] = useState("")
-    console.log("🚀 ~ page ~ vehicleType:", vehicleType)
     const [vehicleNumber, setVehicleNumber] = useState("")
-    console.log("🚀 ~ page ~ vehicleNumber:", vehicleNumber)
     const [vehicleModel, setVehicleModel] = useState("")
-    console.log("🚀 ~ page ~ vehicleModel:", vehicleModel)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
 
