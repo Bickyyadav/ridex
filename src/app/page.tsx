@@ -27,14 +27,15 @@ export default async function Home() {
         </>
           : (plainUser?.role == "admin"
             ?
-            <AdminDashboard /> : <>
+            <AdminDashboard />
+            :
+            <>
               <Nav />
               <PublicHome />
             </>
           )}
       {/* {user?.role == "partner" ? <PartnerDashboard /> : (user?.role == "admin" ? <AdminDashboard /> : <PublicHome />)} */}
       <Footer />
-
     </div>
   );
 }

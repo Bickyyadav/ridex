@@ -1,5 +1,6 @@
 import { rejects } from 'assert';
 import { v2 as cloudinary, UploadStream } from 'cloudinary'
+import { Aref_Ruqaa } from 'next/font/google';
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -10,11 +11,11 @@ cloudinary.config({
 
 
 const uploadOnCloudinary = async (file: Blob): Promise<string | null> => {
-    console.log("🚀 ~ uploadOnCloudinary ~ file:", file)
     if (!file) {
         return null
     }
     try {
+        // getting data in buffer and sending one buffer from arrayBuffer we are getting and seding buffer to the cloudinary
         const arrayBuffer = await file.arrayBuffer()
         const buffer = Buffer.from(arrayBuffer)
 

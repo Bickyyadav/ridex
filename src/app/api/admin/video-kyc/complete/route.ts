@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
             videoKycRoomId: roomId,
             role: "partner"
         })
+
         if (!partner) {
             return Response.json({ message: "partner not found" }
                 , { status: 400 }
@@ -52,6 +53,7 @@ export async function POST(req: NextRequest) {
                     , { status: 400 }
                 )
             }
+            
             partner.videoKycStatus = "rejected"
             partner.videoKycRejectionReason = reason.trim()
         }

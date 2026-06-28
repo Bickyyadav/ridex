@@ -32,8 +32,6 @@ const STEPS: Step[] = [
 
 const TOTAL_STEPS = STEPS.length;
 
-
-
 const PartnerDashboard = () => {
     const router = useRouter()
     const [activeStep, setActiveStep] = useState(0)
@@ -149,7 +147,6 @@ const PartnerDashboard = () => {
                             title={"video kyc approved"}
                             desc={"You can now proceed to pricing."}
                         />
-
                     ) : userData?.videoKycStatus === "rejected" ? (
                         <RejectionCard
                             title="Video KYC Rejected"

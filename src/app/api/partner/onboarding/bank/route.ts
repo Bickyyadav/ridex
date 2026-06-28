@@ -27,16 +27,33 @@ export async function POST(req: NextRequest) {
                 , { status: 400 }
             )
         }
-        const partnerBank = await PartnerBank.findOneAndUpdate(
-            { owner: user._id },
-            {
+        
+        let partnerBank = await PartnerBank.findOne({ owner: user._id })
+
+        if (partnerBank) {
+            partnerBank.accountHolder = accountHolder
+            partnerBank.accountNumber = accountNumber
+            partnerBank.ifsc = ifsc
+            partnerBank.upi = upi
+            partnerBank.status = "added"
+            await partnerBank.save()
+        } else {
+            const duplicate = await PartnerBank.findOne({ accountNumber })
+            if (duplicate) {
+                return Response.json(
+                    { message: "Bank account already registered" }
+                    , { status: 400 }
+                )
+            }
+            partnerBank = await PartnerBank.create({
+                owner: user._id,
                 accountHolder,
                 accountNumber,
                 ifsc,
                 upi,
                 status: "added"
-            },
-            { upsert: true, new: true })
+            })
+        }
 
         user.mobileNumber = mobileNumber
 
@@ -50,8 +67,6 @@ export async function POST(req: NextRequest) {
             , { status: 201 }
         )
 
-
-
     } catch (error) {
         return Response.json({ message: `partner bank error ${error}` }
             , { status: 500 }
@@ -59,9 +74,6 @@ export async function POST(req: NextRequest) {
 
     }
 }
-
-
-
 
 export async function GET(req: NextRequest) {
     try {

@@ -42,7 +42,6 @@ const page = () => {
       setError(error?.response?.data?.message || "something went wrong")
       console.log(error)
       setLoading(false)
-
     }
   }
 
@@ -50,13 +49,11 @@ const page = () => {
     try {
       const handleGetBank = async () => {
         const { data } = await axios.get("/api/partner/onboarding/bank")
-        console.log(data)
         setAccountHolder(data.partnerBank.accountHolder)
         setAccountNumber(data.partnerBank.accountNumber)
         setIfsc(data.partnerBank.ifsc)
         setMobileNumber(data.mobileNumber)
         setupi(data.partnerBank.upi)
-
       }
       handleGetBank()
 
@@ -64,7 +61,6 @@ const page = () => {
       console.log(error)
     }
   }, [])
-
 
 
   return (
@@ -81,7 +77,6 @@ const page = () => {
           <p className='text-xs text-gray-500 font-medium'>
             step 3 of 3
           </p>
-
           <h1 className='text-2xl font-bold mt-1'>
             Bank & Payout Setup
           </h1>

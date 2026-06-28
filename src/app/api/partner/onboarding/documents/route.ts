@@ -34,11 +34,11 @@ export async function POST(req: NextRequest) {
             )
         }
         const updatePayload: any = {
+            owner: user._id,
             status: "pending"
         }
         if (aadhar) {
             const url = await uploadOnCloudinary(aadhar)
-            console.log("🚀 ~ POST ~ url:", url)
             if (!url) {
                 return Response.json({ message: "aadhar upload failed" }
                     , { status: 500 }
@@ -48,7 +48,6 @@ export async function POST(req: NextRequest) {
         }
         if (license) {
             const url = await uploadOnCloudinary(license)
-            console.log("🚀 ~ POST ~ url:", url)
             if (!url) {
                 return Response.json({ message: "license upload failed" }
                     , { status: 500 }
@@ -58,7 +57,6 @@ export async function POST(req: NextRequest) {
         }
         if (rc) {
             const url = await uploadOnCloudinary(rc)
-            console.log("🚀 ~ POST ~ url:", url)
             if (!url) {
                 return Response.json({ message: "rc upload failed" }
                     , { status: 500 }
@@ -68,9 +66,9 @@ export async function POST(req: NextRequest) {
         }
 
         const partnerDocs = await PartnerDocs.findOneAndUpdate(
-            { owner: user._id },  //It searches using this filter
+            { owner: user._id },  //It searches using this filter like searching with owner id 
             { $set: updatePayload },
-            { upsert: true, new: true } //// No document found? Then create one
+            { upsert: true, new: true } // No document found? Then create one
         )
         if (user.partnerOnBoardingSteps < 2) {
             user.partnerOnBoardingSteps = 2

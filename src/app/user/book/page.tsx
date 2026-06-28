@@ -54,7 +54,8 @@ const page = () => {
         hidden: { opacity: 0, y: 16 },
         visible: { opacity: 1, y: 0 }
     }
-  
+
+    // search using enter addresss
     const searchAddress = async (q: string, setResults: (r: Place[]) => void, restrict?: string | null) => {
         if (!q || q.trim().length < 3) {
             setResults([])
@@ -79,9 +80,11 @@ const page = () => {
                 lat: f.geometry.coordinates[1],
                 lng: f.geometry.coordinates[0]
             }))
+            //this is we are doing restrict the country that we provide in the setResults and we are using in the pickDropCountry usestate
             if (restrict) {
                 results = results.filter(r => r.country == restrict)
             }
+            //this is setpickupdata which we will proivde in the setResults
             setResults(results)
         } catch (error) {
             console.log(error)
@@ -91,7 +94,7 @@ const page = () => {
 
     const suggestion = (p: Place) => [p.name, p.city, p.state, p.country].filter(Boolean).join(",")
 
-    //reverse localtion
+    //get current localtion by using reverse geocoding api 
     const useCurrentLocation = () => {
         if (!navigator.geolocation) return;
         setLocating(true)
@@ -106,7 +109,7 @@ const page = () => {
                         filter: "countrycode:in"
                     }
                 })
-               
+
                 if (data.features.length) {
                     const p = data.features[0].properties
                     const address = [p.name, p.street, p.county, p.state, p.country, p.city,].filter(Boolean).join(",")
